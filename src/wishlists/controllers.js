@@ -8,7 +8,7 @@ const addWishlist = async(req, res) => {
 		})
 		res.status(201).json({
 			message: "success",
-			wishlists: {UserId: currentUserId, steamAppID: req.body.steamAppID}})
+			wishlists: {UserId: req.authUser.dataValues.id, steamAppID: req.body.steamAppID}})
 	}
 	catch (error) {
 		res.status(501).json({message: "error", error: error})
@@ -19,10 +19,9 @@ const deleteWishlist = async (req, res) => {
 	try {
 		const wishlists = await Wishlist.destroy({
 			where: {
-				id: req.authUser.dataValues.id,
+				steamAppID: req.body.steamAppID,
 			}
 		})
-		console.log(todos)
 		if (wishlists == 0) {
 			res.status(404).json({message: "item not found"})
 		}
@@ -36,9 +35,8 @@ const deleteWishlist = async (req, res) => {
 }
 
 const getWishlist = async (req, res) => {
-	console.log(currentID)
 	try {
-		const wishlists = await Data.findAll({
+		const wishlists = await Wishlist.findAll({
 			where: {UserId : req.authUser.dataValues.id}
 		});
 		res.status(201).json({message:"success",wishlists:wishlists})

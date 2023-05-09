@@ -9,13 +9,13 @@ userRouter.post("/users/register", hashPass, registerUser)
 
 userRouter.post("/users/login", comparePass, login)
 
-userRouter.get("/users/getUsers", tokenCheck, getAllUsers) 
+userRouter.get("/users/getusers", tokenCheck, getAllUsers) 
 
-userRouter.get("/users/authCheck", tokenCheck, login)
+userRouter.get("/users/authcheck", tokenCheck, login)
 
-userRouter.put("/users/updateUser", updateUser)
+userRouter.put("/users/updateuser", tokenCheck, updateUser)
 
-userRouter.delete("/users/deleteUser", deleteUser)
+userRouter.delete("/users/deleteuser", tokenCheck, deleteUser)
 
 
 module.exports = userRouter
