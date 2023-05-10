@@ -6,7 +6,7 @@ const registerUser = async (req, res) => {
         const user = await User.create(req.body)
         res.status(201).json({
             message: "success",
-            user: {username: req.body.username, email: req.body.email}
+            user: {username: req.body.username}
         })
     } catch (error) {
         res.status(501).json({errorMessage: error.message, error: error})
@@ -55,7 +55,6 @@ const login = async (req, res) => {
             message: "success",
             user: {
               username: req.authUser.username,
-              email: req.authUser.email
             }
           })
           return
@@ -65,7 +64,6 @@ const login = async (req, res) => {
             message: "success",
             user: {
                 username: req.user.username,
-                email: req.user.email,
                 token: token
             }
         })
