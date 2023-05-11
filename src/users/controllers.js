@@ -2,9 +2,9 @@ const  User = require ("./model")
 const jwt = require("jsonwebtoken")
 
 const registerUser = async (req, res) => {
-    try { 
+    try {
         const user = await User.create(req.body)
-        const token = jwt.sign({id: req.user.id}, process.env.SECRET);
+        const token = jwt.sign({id: user.id}, process.env.SECRET);
         res.status(201).json({
             message: "success",
             user: {
