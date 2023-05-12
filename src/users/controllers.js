@@ -20,8 +20,11 @@ const registerUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-      const users = await User.findAll();
-      res.status(200).json({ message: "success", users: users });
+      const users = await User.findAll({
+        attributes: ['username'],
+      });
+      const usernames = users.map((user) => user.username);
+      res.status(200).json({ message: "success", users: usernames });
     } catch (error) {
       res.status(501).json({ errorMessage: error.message, error: error });
     }
