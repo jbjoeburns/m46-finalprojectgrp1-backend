@@ -13,6 +13,17 @@ const hashPass = async (req, res, next) => {
     }
 }
 
+const hashPassUpdate = async (req, res, next) => {
+    try {
+        if (req.body.updateKey === "password"){
+        req.body.updateValue = await bcrypt.hash(req.body.updateValue, parseInt(saltRounds))
+        }
+        next()
+    } catch (error) {
+        res.status(501).json({errorMessage: error.message, error: error})
+    }
+}
+
 const comparePass = async (req, res, next) => {
     try {
         req.user = await User.findOne({where: {username: req.body.username}})      
@@ -51,5 +62,6 @@ const tokenCheck = async (req, res, next) => {
 module.exports = {
     hashPass,
     comparePass,
-    tokenCheck
+    tokenCheck,
+    hashPassUpdate
 }
