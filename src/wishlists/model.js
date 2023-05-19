@@ -5,7 +5,6 @@ const Wishlist = connection.define("Wishlist", {
     steamAppID: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
     },
 },)
 
